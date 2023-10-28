@@ -13,38 +13,31 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg bg-primary">
+<nav class="navbar navbar-expand-lg bg-primary">
     <div class="container-fluid">
-      <a class="navbar-brand" href="/">Page Kepper</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      {{#if name}}
-      <div class="navbar-nav ml-auto">
-          <p class="navbar-text mb-0"><i>{{name}}</i></p>
-          <a class="nav-link text-dark border-bottom border-dark mx-3" aria-current="page" href="/logout">LogOut</a>
-      </div>
-
-      {{else}}
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
+        <a class="navbar-brand" href="/">Page Keeper</a>
+        {{#if userName}}
+        <div class="d-flex justify-content-center align-items-center flex-grow-1">
+            <!-- Coloca aquí tus opciones en el centro -->
+            <a class="nav-link text-dark border-bottom border-dark mx-4" href="/ventas">Ventas</a>
+            <a class="nav-link text-dark border-bottom border-dark mx-4" href="/reportes">Reportes</a>
+            <a class="nav-link text-dark border-bottom border-dark mx-4" href="/inventario">Inventario</a>
+            <a class="nav-link text-dark border-bottom border-dark mx-4" href="/correo">Correo</a>
+        </div>
+        {{/if}}
+        <div class="navbar-nav ml-auto">
+            {{#if userName}}
+            <p class="navbar-text mb-0"><i>{{userName}}</i></p>
+            <a class="nav-link text-dark  mx-3" href="/logout"><i class="bi bi-box-arrow-left"></i></a>
+            {{else}}
             <a class="nav-link border-bottom border-dark mx-2 p-0" aria-current="page" href="/login">Login</a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link border-bottom border-dark mx-2 p-0" href="/register">Register</a>
-          </li>
-        </ul>
-      </div>
-      {{/if}}
+            {{/if}}
+        </div>
     </div>
-  </nav>
-
+</nav>
 
   {{{body}}}
-
 
 </body>
 

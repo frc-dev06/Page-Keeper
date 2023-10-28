@@ -6,6 +6,7 @@ const session = require ('express-session');
 const bodyParser= require('body-parser')
 
 const loginRoutes= require('./routes/login.js')
+const inventarioRoutes= require('./routes/inventario.js')
 
 const app= express();
  
@@ -33,21 +34,32 @@ app.use(myconnection(mysql, {
     database:'pagekeeperweb'
 }));
 
+// configuracion de la sesion
 app.use(session({
     secret:'secret',
     resave:true,
     saveUninitialized:true
 }))
-
+// middleware de verificacion de sesion
+app.use((req, res, next) => {
+    if (req.session.loggedin) {
+      // Si hay una sesión activa, agrega los datos del usuario a res.locals
+      res.locals.userName = req.session.userName;
+    }
+    next();
+  });
+// validar sesion /  renderizar y pasar variables a home
+// ----------------------------
 app.get('/',(req,res)=>{
     if(req.session.loggedin == true){
-        res.render('home', {name: req.session.name});
+        res.render('home', {userName: req.session.userName});
     }else{
         res.redirect('/login')
     }
 });
-
+// ------------------------------
 app.use('/', loginRoutes)
+app.use('/inventario', inventarioRoutes)
 
 
 // run server
