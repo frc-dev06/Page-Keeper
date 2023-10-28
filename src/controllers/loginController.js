@@ -79,7 +79,7 @@ function storeUser(req, res) {
                     req.getConnection((err, conn) => {
                         conn.query('INSERT INTO usuarios SET ?', [data], (err, rows) => {
                             req.session.loggedin= true;
-                            req.session.name= data.name;
+                            req.session.name= data.userName;
                             res.redirect('/');
                         });
                     });

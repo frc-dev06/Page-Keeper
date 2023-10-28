@@ -7,6 +7,9 @@ const bodyParser= require('body-parser')
 
 const loginRoutes= require('./routes/login.js')
 const inventarioRoutes= require('./routes/inventario.js')
+const ventasRoutes= require('./routes/ventas.js')
+const reportesRoutes= require('./routes/reportes.js')
+const correoRoutes= require('./routes/correo.js')
 
 const app= express();
  
@@ -58,10 +61,12 @@ app.get('/',(req,res)=>{
     }
 });
 // ------------------------------
+// usar rutas
 app.use('/', loginRoutes)
 app.use('/inventario', inventarioRoutes)
-
-
+app.use('/ventas', ventasRoutes)
+app.use('/reportes', reportesRoutes)
+app.use('/correo', correoRoutes)
 // run server
 app.listen(app.get('port'),()=>{
     console.log('server listener on port ', app.get('port'));
