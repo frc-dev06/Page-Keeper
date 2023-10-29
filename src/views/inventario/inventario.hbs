@@ -1,3 +1,42 @@
-<h1 style="color: rgb(84, 163, 137); " class="text-center">inventario!!</b> </h1>
 
-<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo hic ipsum nulla nemo eius, officiis alias possimus nostrum quaerat culpa tempore a sunt libero temporibus velit doloribus maiores ea inventore earum rem placeat adipisci. Debitis et quia hic incidunt voluptatibus qui, distinctio, repudiandae labore autem rem natus neque optio molestiae eius fuga delectus recusandae. Asperiores ex dicta fugiat perspiciatis, error corrupti reiciendis in dolorum temporibus praesentium similique sunt? Adipisci dolores aperiam minima nostrum itaque porro minus accusamus qui impedit consectetur quis veniam, dignissimos, hic nobis doloribus ipsam animi deleniti culpa praesentium sapiente eum. Iusto veniam praesentium illum perferendis architecto laborum.</p>
+<div class="container mt-5">
+  <h1 class="mb-4">Inventario</h1>
+  
+  <!-- Barra de búsqueda -->
+  <div class="input-group mb-3">
+    <input type="text" class="form-control" placeholder="Buscar producto" aria-label="Buscar producto" aria-describedby="search-button">
+    <button class="btn btn-primary" type="button" id="search-button">Buscar</button>
+  </div>
+  
+  <!-- Tabla de productos -->
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Precio</th>
+        <th>Cantidad</th>
+        <th>Autor</th>
+        <th>Género</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{!-- Utiliza un bucle Handlebars para iterar a través de tus registros --}}
+      {{#each productos}}
+      <tr>
+        <td>{{nombre}}</td>
+        <td>{{precio}}</td>
+        <td>{{cantidad}}</td>
+        <td>{{autor}}</td>
+        <td>{{genero}}</td>
+        <td>
+          <button class="btn btn-info">Editar</button>
+          <button class="btn btn-danger">Borrar</button>
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+  <a href="inventario/registrar" class="btn btn-primary ">Registrar Producto</a>
+
+</div>

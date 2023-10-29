@@ -12,6 +12,16 @@ const reportesRoutes= require('./routes/reportes.js')
 const correoRoutes= require('./routes/correo.js')
 
 const app= express();
+
+// configuracion de conexion
+app.use(myconnection(mysql, {
+    host:'localhost',
+    user:'root',
+    password:'',
+    port:3306,
+    database:'pagekeeperweb'
+}));
+
  
 // port
 app.set('port', process.env.PORT || 4000)
@@ -29,13 +39,7 @@ app.use(bodyParser.urlencoded({
 }))
 
 app.use(bodyParser.json());
-app.use(myconnection(mysql, {
-    host:'localhost',
-    user:'root',
-    password:'',
-    port:3306,
-    database:'pagekeeperweb'
-}));
+
 
 // configuracion de la sesion
 app.use(session({

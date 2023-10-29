@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
-let idUsuario= undefined;
-let nameUsuario= undefined;
-let emailUsuario= undefined;
+// let idUsuario= undefined;
+// let nameUsuario= undefined;
+// let emailUsuario= undefined;
 
 
 function login(req, res) {
@@ -34,15 +34,15 @@ function auth(req, res){
                             req.session.loggedin= true;
                             // almacenar el id de usuario de la DB
                             req.session.userId= element.idUsuario;
-                            idUsuario= req.session.userId
+                            // idUsuario= req.session.userId
                             // almacenar nombre de usuario
                             req.session.userName= element.name
-                            nameUsuario= req.session.userName
+                            // nameUsuario= req.session.userName
                             // almacenar email de usuario
                             req.session.userEmail= element.email
-                            emailUsuario= req.session.userEmail
+                            // emailUsuario= req.session.userEmail
                             res.redirect('/');
-                            console.log({emailUsuario,idUsuario,nameUsuario});
+                            console.log(req.session.userId);
                         }
                     });
                     
@@ -104,7 +104,7 @@ module.exports = {
     storeUser,
     auth,
     logout,
-    idUsuario,
-    nameUsuario,
-    emailUsuario
+    // idUsuario,
+    // nameUsuario,
+    // emailUsuario
 }
