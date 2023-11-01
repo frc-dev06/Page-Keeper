@@ -1,1 +1,27 @@
-<h1>REPORTES</h1>
+
+
+    <div class="container mt-5">
+        <h1>Reportes</h1>
+
+        <form id="reportForm">
+            <div class="mb-3">
+                <label for="reportType" class="form-label">Selecciona el tipo de reporte</label>
+                <select class="form-select" id="reportType" name="reportType">
+                    <option value="bar">Gráfico de barras</option>
+                    <option value="line">Gráfico de líneas</option>
+                    <option value="pie">Gráfico de pastel</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Generar Reporte</button>
+        </form>
+
+       
+        <div class="mt-4">
+            <canvas id="myChart" width="400" height="200"></canvas>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script src="/reportes.js"></script>
