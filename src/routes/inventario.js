@@ -4,6 +4,9 @@ const router= express.Router();
 
 router.get('/', inventarioController.checkSessionInventario);
 
+// busqueda de producto
+router.get('/buscar/:busqueda', inventarioController.buscarProducto);
+
 // rutas para funciones de registro
 router.get('/registrar', inventarioController.showRegistroForm);
 router.post('/registrarProducto', inventarioController.registrarProducto);

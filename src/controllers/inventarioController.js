@@ -1,5 +1,32 @@
 const express = require('express')
 
+function buscarProducto(req, res) {
+    const inputVal = req.params.busqueda; // Obtén el término de búsqueda desde la URL
+    const idUsuario = req.session.userId;
+
+    // Modifica el término de búsqueda con comodines %
+    const searchTermValue = `%${inputVal}%`;
+
+    // Realiza una consulta a la base de datos para buscar productos basados en searchTerm y el id del usuario
+    req.getConnection(function (err, conn) {
+        if (err) {
+            console.error(err);
+        } else {
+            conn.query('SELECT ul.idUsuariosLibros, l.nombreLibro AS nombre, ul.precio, ul.cantidad, (SELECT nombreAutor FROM autores a WHERE a.idAutor = (SELECT idAutor FROM librosAutores la WHERE la.idLibro = l.idLibro LIMIT 1)) AS autor, g.nombreGenero AS genero FROM libros l JOIN usuariosLibros ul ON l.idLibro = ul.idLibro JOIN librosGenero lg ON l.idLibro = lg.idLibro JOIN generos g ON lg.idGenero = g.idGenero WHERE ul.idUsuario = ? AND l.nombreLibro LIKE ?', [idUsuario, searchTermValue], function (err, productos) {
+                if (err) {
+                    console.log('Error al buscar productos:', err);
+                } else {
+                    // Renderiza la vista de inventario con los resultados de la búsqueda
+                    const respuestaJSON = { productos };
+                    res.json(respuestaJSON);
+                }
+            });
+        }
+    });
+}
+
+
+
 function checkSessionInventario(req, res) {
     if (req.session.loggedin) {
 
@@ -281,12 +308,12 @@ function renEliminarProducto(req, res) {
     }
 }
 function eliminarProducto(req, res) {
-    
+
     if (req.session.loggedin) {
         const idUsuario = req.session.userId;
         const idUL = req.params.id
         req.getConnection(function (err, conn) {
-            
+
             if (err) {
                 // Manejar errores si es necesario
                 console.error(err);
@@ -312,6 +339,7 @@ function eliminarProducto(req, res) {
 
 
 module.exports = {
+    buscarProducto,
     checkSessionInventario,
     showRegistroForm,
     registrarProducto,
