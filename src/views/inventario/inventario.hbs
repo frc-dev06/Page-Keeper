@@ -1,3 +1,9 @@
+{{!-- <style>
+    .alerta {
+    background-color: yellow; 
+}
+</style> --}}
+
 <div class="container mt-5">
     <h1 class="mb-4">Inventario</h1>
 
@@ -24,11 +30,11 @@
             {{!-- Utiliza un bucle Handlebars para iterar a través de tus registros --}}
             {{#each productos}}
             <tr>
-                <td>{{nombre}}</td>
-                <td>{{precio}}</td>
-                <td>{{cantidad}}</td>
-                <td>{{autor}}</td>
-                <td>{{genero}}</td>
+                <td id="nombre">{{nombre}}</td>
+                <td id="precio">{{precio}}</td>
+                <td id="cantidad">{{cantidad}}</td>
+                <td id="autor">{{autor}}</td>
+                <td id="genero">{{genero}}</td>
                 <td>
                     <a href="inventario/editar/{{idUsuariosLibros}}" class="btn btn-info">Editar</a>
                     <a href="inventario/eliminar/{{idUsuariosLibros}}" class="btn btn-danger">Eliminar</a>
@@ -40,5 +46,32 @@
     <a href="inventario/registrar" class="btn btn-primary ">Registrar Producto</a>
 
 </div>
+
+<script>
+    const filas = document.querySelectorAll('tbody tr');
+
+    filas.forEach(fila => {
+        
+        const cantidadCelda = fila.querySelector('#cantidad');
+        const nombreCelda = fila.querySelector('#nombre');
+        const precioCelda = fila.querySelector('#precio');
+        const autorCelda = fila.querySelector('#autor');
+        const generoCelda = fila.querySelector('#genero');
+
+        const cantidad = parseInt(cantidadCelda.textContent);
+        console.log('cantidad: '+cantidad);
+
+
+        if (cantidad <= 5) {
+            cantidadCelda.style.backgroundColor = '#FFFF83';
+            nombreCelda.style.backgroundColor = '#FFFF83';
+            precioCelda.style.backgroundColor = '#FFFF83';
+            autorCelda.style.backgroundColor = '#FFFF83';
+            generoCelda.style.backgroundColor = '#FFFF83';
+        }
+    });
+</script>
+
+</script>
 
 <script src="/busquedaInventario.js"></script>
