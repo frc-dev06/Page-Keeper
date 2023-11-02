@@ -1,27 +1,50 @@
+<style>
+    .cabecera{
+        background-color: yellow;
+    }
+    .recomendacion{
+    }
+</style>
 
+<div class="container mt-5">
+    <h1>Reportes</h1>
 
-    <div class="container mt-5">
-        <h1>Reportes</h1>
-
-        <form id="reportForm">
-            <div class="mb-3">
-                <label for="reportType" class="form-label">Selecciona el tipo de reporte</label>
-                <select class="form-select" id="reportType" name="reportType">
-                    <option value="bar">Gráfico de barras</option>
-                    <option value="line">Gráfico de líneas</option>
-                    <option value="pie">Gráfico de pastel</option>
-                </select>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Generar Reporte</button>
-        </form>
-
-       
-        <div class="mt-4">
-            <canvas id="myChart" width="400" height="200"></canvas>
+    <form id="reportForm">
+        <div class="mb-3">
+            <label for="chartType" class="form-label">Selecciona el tipo de reporte</label>
+            <select class="form-select" id="chartType" name="chartType">
+                <option value="bar">Gráfico de barras</option>
+                <option value="line">Gráfico de líneas</option>
+                <option value="pie">Gráfico de pastel</option>
+            </select>
         </div>
+
+        <div class="mb-3">
+            <label for="reportType" class="form-label">Selecciona el tipo de gráfico</label>
+            <select class="form-select" id="reportType" name="reportType">
+                <option value="librosCantidad">Cantidad de libros</option>
+                <option value="ventasGenero">Ventas por genero</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Generar Reporte</button>
+        <button type="submit" class="btn btn-primary btnVentas">Ventas</button>
+    </form>
+
+    <div class="tablaInfo">
+
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <script src="/reportes.js"></script>
+    <div class="mt-4 grafico">
+        <canvas id="myChart" width="200" height="100"></canvas>
+    </div>
+
+    <ul class="list-group recomendacion m-5">
+      
+    </ul>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script src="/reportes.js"></script>
