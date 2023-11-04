@@ -62,32 +62,47 @@ function register(req, res) {
     }
 }
 
-// extraer los datos de la solicitud
 function storeUser(req, res) {
     const data = req.body;
 
     req.getConnection((err, conn) => {
-        // validar si ya existe un usuaario con el mismo email
+        // Validar si ya existe un usuario con el mismo email
         conn.query('SELECT * FROM usuarios WHERE email = ?', [data.email], (err, userdata) => {
             if (userdata.length > 0) {
-                res.render('login/register', {error: 'Error: user alredy exists'})
+                res.render('login/register', { error: 'Error: user already exists' });
             } else {
-                // encriptar contraseña 
+                // Encriptar contraseña
                 bcrypt.hash(data.password, 12).then(hash => {
                     data.password = hash;
 
-                    req.getConnection((err, conn) => {
-                        conn.query('INSERT INTO usuarios SET ?', [data], (err, rows) => {
-                            req.session.loggedin= true;
-                            req.session.name= data.userName;
-                            res.redirect('/');
-                        });
+                    // Insertar usuario en la base de datos
+                    conn.query('INSERT INTO usuarios SET ?', [data], (err, rows) => {
+                        if (err) {
+                            res.render('login/register', { error: 'Error: registration failed' });
+                        } else {
+                            // Recuperar el usuario recién registrado
+                            conn.query('SELECT * FROM usuarios WHERE email = ?', [data.email], (err, newUserData) => {
+                                if (newUserData.length === 1) {
+                                    const newUser = newUserData[0];
+                                    // Establecer la sesión para el usuario registrado
+                                    req.session.loggedin = true;
+                                    req.session.userId = newUser.idUsuario;
+                                    req.session.userName = newUser.name;
+                                    req.session.userEmail = newUser.email;
+                                    res.redirect('/');
+                                } else {
+                                    res.render('login/register', { error: 'Error: registration failed' });
+                                }
+                            });
+                        }
                     });
                 });
             }
         });
-    })
-};
+    });
+}
+
+
 
 function logout(req, res){
     if(req.session.loggedin==true){
