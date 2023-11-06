@@ -1,1 +1,61 @@
-<h1>hello VENTAS</h1>
+<div class="container mt-5">
+    <h1 class="mb-4">Ventas</h1>
+
+   
+    <div class="input-group mb-3">
+        <input type="text" class="form-control valBusqueda" placeholder="Buscar producto" aria-label="Buscar producto"
+            aria-describedby="search-button">
+        <button class="btn btn-primary btnBusqueda" type="button" id="search-button">Buscar</button>
+    </div>
+
+  
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>Autor</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            
+            
+            {{#each productos}}
+            <tr>
+                <td id="nombre">{{nombre}}</td>
+                <td id="precio">{{precio}}</td>
+                <td id="cantidad">{{cantidad}}</td>
+                <td id="autor">{{autor}}</td>
+                <td>
+                    <a href="ventas/buy{{idUsuariosLibros}}" class="btn btn-info">Comprar</a>
+                   
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+
+</div>
+
+<script>
+    const filas = document.querySelectorAll('tbody tr');
+
+    filas.forEach(fila => {
+        
+        const cantidadCelda = fila.querySelector('#cantidad');
+        const nombreCelda = fila.querySelector('#nombre');
+        const precioCelda = fila.querySelector('#precio');
+        const autorCelda = fila.querySelector('#autor');
+
+
+        const cantidad = parseInt(cantidadCelda.textContent);
+        console.log('cantidad: '+cantidad);
+
+</script>
+
+</script>
+
+<script src="/ventas.js"></script>
