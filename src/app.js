@@ -4,6 +4,8 @@ const myconnection= require('express-myconnection');
 const mysql= require('mysql');
 const session = require ('express-session');
 const bodyParser= require('body-parser')
+const nodemailer = require('nodemailer');
+
 
 const loginRoutes= require('./routes/login.js')
 const inventarioRoutes= require('./routes/inventario.js')

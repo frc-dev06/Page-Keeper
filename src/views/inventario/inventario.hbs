@@ -18,6 +18,7 @@
     <table class="table">
         <thead>
             <tr>
+                <th>ID</th>
                 <th>Nombre</th>
                 <th>Precio</th>
                 <th>Cantidad</th>
@@ -30,6 +31,7 @@
             {{!-- Utiliza un bucle Handlebars para iterar a través de tus registros --}}
             {{#each productos}}
             <tr>
+                <td id="id">{{idLibro}}</td>
                 <td id="nombre">{{nombre}}</td>
                 <td id="precio">{{precio}}</td>
                 <td id="cantidad">{{cantidad}}</td>
@@ -51,7 +53,7 @@
     const filas = document.querySelectorAll('tbody tr');
 
     filas.forEach(fila => {
-        
+        const idCelda = fila.querySelector('#id');
         const cantidadCelda = fila.querySelector('#cantidad');
         const nombreCelda = fila.querySelector('#nombre');
         const precioCelda = fila.querySelector('#precio');
@@ -63,6 +65,7 @@
 
 
         if (cantidad <= 5) {
+            idCelda.style.backgroundColor = '#FFFF83';
             cantidadCelda.style.backgroundColor = '#FFFF83';
             nombreCelda.style.backgroundColor = '#FFFF83';
             precioCelda.style.backgroundColor = '#FFFF83';

@@ -38,6 +38,7 @@ function checkSessionInventario(req, res) {
             } else {
                 // consulta a la base de datos
                 conn.query('SELECT ' +
+                    ' l.idLibro, ' +
                     ' ul.idUsuariosLibros,' +
                     '  l.nombreLibro AS nombre, ' +
                     '  ul.precio, ' +
