@@ -6,8 +6,22 @@ const session = require ('express-session');
 const bodyParser= require('body-parser')
 
 const loginRoutes= require('./routes/login.js')
+const inventarioRoutes= require('./routes/inventario.js')
+const ventasRoutes= require('./routes/ventas.js')
+const reportesRoutes= require('./routes/reportes.js')
+const correoRoutes= require('./routes/correo')
 
 const app= express();
+
+// configuracion de conexion
+app.use(myconnection(mysql, {
+    host:'localhost',
+    user:'root',
+    password:'Manuel15',
+    port:3306,
+    database:'pagekeeperweb'
+}));
+
  
 // port
 app.set('port', process.env.PORT || 4000)
@@ -24,32 +38,42 @@ app.use(bodyParser.urlencoded({
     extended:true
 }))
 
-app.use(bodyParser.json());
-app.use(myconnection(mysql, {
-    host:'localhost',
-    user:'root',
-    password:'',
-    port:3306,
-    database:'pagekeeperweb'
-}));
+app.use(express.static(__dirname + '/public'));
 
+
+app.use(bodyParser.json());
+
+
+// configuracion de la sesion
 app.use(session({
     secret:'secret',
     resave:true,
     saveUninitialized:true
 }))
-
+// middleware de verificacion de sesion
+app.use((req, res, next) => {
+    if (req.session.loggedin) {
+      // Si hay una sesión activa, agrega los datos del usuario a res.locals
+      res.locals.userName = req.session.userName;
+    }
+    next();
+  });
+// validar sesion /  renderizar y pasar variables a home
+// ----------------------------
 app.get('/',(req,res)=>{
     if(req.session.loggedin == true){
-        res.render('home', {name: req.session.name});
+        res.render('home', {userName: req.session.userName});
     }else{
         res.redirect('/login')
     }
 });
-
+// ------------------------------
+// usar rutas
 app.use('/', loginRoutes)
-
-
+app.use('/inventario', inventarioRoutes)
+app.use('/ventas', ventasRoutes)
+app.use('/reportes', reportesRoutes)
+app.use('/correo', correoRoutes)
 // run server
 app.listen(app.get('port'),()=>{
     console.log('server listener on port ', app.get('port'));
