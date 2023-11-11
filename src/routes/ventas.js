@@ -1,11 +1,8 @@
 const express= require('express');
-const ventasCotroller= require('../controllers/ventasCotroller');
-const { route } = require('./login');
-
+const ventasController = require('../controllers/ventasController');
 const router= express.Router();
 
-router.get('/', ventasCotroller.checkSession);
-router.get('/search', ventasCotroller.search);
-router.post('/buy', ventasCotroller.buy);
+router.get('/', ventasController.checkSession);
 
-module.exports= router
+
+module.exports= router;

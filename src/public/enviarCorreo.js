@@ -1,36 +1,19 @@
-document.querySelector('form').addEventListener('submit', (event) => {
+/*document.getElementById('form').addEventListener('submit', function(event) {
     event.preventDefault();
 
-    // Obtén los datos del formulario
-    let email = document.querySelector('#email').value;
-    let subject = document.querySelector('#subject').value;
-    let message = document.querySelector('#message').value;
-    let file = document.querySelector('#file').files[0];
+    var formData = new FormData();
+    formData.append('email', document.getElementById('email').value);
+    formData.append('subject', document.getElementById('subject').value);
+    formData.append('message', document.getElementById('message').value);
 
-    // Valida los datos del formulario aquí
-    // ...
+    var fileField = document.querySelector('input[type="file"]');
+    formData.append('file', fileField.files[0]);
 
-    // Crea un objeto FormData para enviar los datos del formulario
-    let formData = new FormData();
-    formData.append('email', email);
-    formData.append('subject', subject);
-    formData.append('message', message);
-    formData.append('file', file);
-
-    // Envía los datos del formulario a tu servidor
-    // Envía los datos del formulario a tu servidor
-fetch('/correo/send-email', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-        email: email,
-        subject: subject,
-        message: message
-    }),
-})
-.then((response) => response.json())
-.then((data) => console.log(data))
-.catch((error) => console.error('Error:', error));
-});
+    fetch('/sendEmail', {
+        method: 'POST',
+        body: formData,
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error('Error:', error));
+});*/

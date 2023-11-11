@@ -1,45 +1,39 @@
-document.querySelector('.btnBusqueda').addEventListener('click', function() {
-    const searchTerm = document.querySelector('.searchTerm').value; // Obtén el término de búsqueda del campo de entrada
-
-    fetch('/search/' + searchTerm) // Hacer una solicitud AJAX a '/search'
+document.addEventListener("DOMContentLoaded", function() {
+    fetch('/ventas/libros')
         .then(response => response.json())
         .then(data => {
-            // Actualizar la tabla con los resultados de la búsqueda
-            const table = document.querySelector('.resultsTable');
-            table.innerHTML = ''; // Limpiar la tabla
-
-            data.forEach(row => {
-                const tr = document.createElement('tr');
-
-                Object.values(row).forEach(text => {
-                    const td = document.createElement('td');
-                    td.textContent = text;
-                    tr.appendChild(td);
-                });
-
-                table.appendChild(tr);
+            const selectElement = document.querySelector('#libros');
+            data.libros.forEach(libro => {
+                const optionElement = document.createElement('option');
+                optionElement.value = libro.idLibro;
+                optionElement.textContent = libro.nombreLibro;
+                selectElement.appendChild(optionElement);
             });
         })
-        .catch(error => console.error('Error:', error));
-});
+        .catch(error => {
+            console.error("Error al cargar libros:", error);
+        });
+    });
 
-document.querySelector('.btnCompra').addEventListener('click', function() {
-    const productId = document.querySelector('.productId').value; // Obtén el ID del producto del campo de entrada
-    const quantity = document.querySelector('.quantity').value; // Obtén la cantidad del campo de entrada
-
-    fetch('/buy', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ productId, quantity }), // Enviar el ID del producto y la cantidad como cuerpo de la solicitud
-    })
+    document.getElementById('comprar').addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent the form from being submitted normally
+    
+        const cantidad = document.getElementById('cantidad').value;
+        const idLibro = document.getElementById('libros').value;
+        
+        fetch('/ventas/comprar', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ cantidad: cantidad , idLibro: idLibro }),
+        })
         .then(response => response.json())
         .then(data => {
-            // Mostrar un mensaje indicando si la compra fue exitosa o no
-            alert(data.message);
+            console.log('Success:', data);
         })
         .catch((error) => {
             console.error('Error:', error);
         });
-});
+        alert('Compra realizada con éxito');
+    });

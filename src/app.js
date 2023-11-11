@@ -4,6 +4,8 @@ const myconnection= require('express-myconnection');
 const mysql= require('mysql');
 const session = require ('express-session');
 const bodyParser= require('body-parser')
+const multer = require('multer');
+const upload = multer();
 
 const loginRoutes= require('./routes/login.js')
 const inventarioRoutes= require('./routes/inventario.js')
@@ -37,11 +39,13 @@ app.set('view engine', 'hbs')
 app.use(bodyParser.urlencoded({
     extended:true
 }))
+app.use(express.urlencoded({ extended: false }));
 
 app.use(express.static(__dirname + '/public'));
 
 
 app.use(bodyParser.json());
+app.use(express.json());
 
 
 // configuracion de la sesion
@@ -78,3 +82,7 @@ app.use('/correo', correoRoutes)
 app.listen(app.get('port'),()=>{
     console.log('server listener on port ', app.get('port'));
 })
+
+//enviar correo
+
+app.use('/ventas', ventasRoutes);
