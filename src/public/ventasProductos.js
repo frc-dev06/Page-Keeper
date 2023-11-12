@@ -20,20 +20,24 @@ document.addEventListener("DOMContentLoaded", function() {
     
         const cantidad = document.getElementById('cantidad').value;
         const idLibro = document.getElementById('libros').value;
-        
-        fetch('/ventas/comprar', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ cantidad: cantidad , idLibro: idLibro }),
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Success:', data);
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
-        alert('Compra realizada con éxito');
+    
+        // Muestra un cuadro de confirmación
+        if (confirm('¿Estás seguro de que quieres comprar este libro?')) {
+            // Si el usuario hace clic en "Aceptar", envía la solicitud
+            fetch('/ventas/comprar', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ cantidad: cantidad , idLibro: idLibro }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                alert('Compra realizada con éxito');
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
     });

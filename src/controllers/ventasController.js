@@ -48,6 +48,7 @@ router.post('/ventas/comprar', function(req, res) {
         const idUsuario = req.session.userId; 
         const date = new Date();
         let valorVenta = undefined ;
+        
 
         console.log('Cantidad: ' + cantidad);
         console.log('fecha'+ date);
@@ -72,6 +73,7 @@ router.post('/ventas/comprar', function(req, res) {
                 }
             }
         });
+
 
         // Consulta para actualizar la cantidad de libros
         const query = 'UPDATE usuariosLibros SET cantidad =cantidad - ? WHERE idLibro = ? AND idUsuario = ?';

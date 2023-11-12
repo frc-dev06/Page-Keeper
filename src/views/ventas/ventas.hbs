@@ -56,35 +56,10 @@
 </select> 
     <div class="form-group">
         <label for="cantidad">Cantidad:</label>
-        <input type="number" id="cantidad" name="cantidad" class="form-control" min="1"  required>
+        <input type="number" id="cantidad" name="cantidad" class="form-control" min="1" max={{this.cantidad}} required>
     </div>
     <button type="submit" class="btn btn-primary"id="comprar">Comprar</button>
 </form>
-
-        <!-- Ventas previas -->
-        <h2>Ventas previas</h2>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Libro</th>
-                    <th>Fecha</th>
-                    <th>Cantidad</th>
-                    <th>Precio</th>
-                </tr>
-            </thead>
-            <tbody>
-                {{#each ventas}}
-                <tr>
-                    <td>{{this.id}}</td>
-                    <td>{{this.libro}}</td>
-                    <td>{{this.fecha}}</td>
-                    <td>{{this.cantidad}}</td>
-                    <td>{{this.precio}}</td>
-                </tr>
-                {{/each}}
-            </tbody>
-        </table>
     </div>
 <script src="/ventasProductos.js"></script>
 </body>
