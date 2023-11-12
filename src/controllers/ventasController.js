@@ -137,7 +137,36 @@ router.post('/ventas/comprar', function(req, res) {
     });
 });
 
-
+router.get('/ventas/consultas', function(req, res) {
+    const idUsuario = req.session.userId;
+    req.getConnection(function (err, conn) {
+        if (err) {
+            console.error(err);
+        } else {
+            const query = `
+                SELECT ventas.idVenta AS idVenta, libros.nombreLibro, ventas.fecha, librosventas.cantidad, librosventas.valorVenta AS valorVenta
+                FROM librosventas
+                JOIN ventas ON librosventas.idVenta = ventas.idVenta
+                JOIN libros ON librosventas.idLibro = libros.idLibro
+                WHERE ventas.idUsuario = ?;
+            `;
+            console.log(query);
+            conn.query(query, [idUsuario], function (err, rows) {
+                if (err) {
+                    console.error(err);
+                } else {
+                    if (rows) {
+                        console.log(rows);
+                        res.json({ ventas: rows });
+                    } else {
+                        console.log('No se encontraron ventas para el usuario: ' + idUsuario);
+                        res.json({ ventas: [] });
+                    }
+                }
+            });
+        }
+    });
+});
 
 module.exports = {
     checkSession,

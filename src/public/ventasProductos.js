@@ -45,3 +45,25 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
     );
+
+    document.addEventListener("DOMContentLoaded", function() {
+        fetch('/ventas/consultas')
+            .then(response => response.json())
+            .then(data => {
+                const tableElement = document.querySelector('.table tbody');
+                data.ventas.forEach(venta => {
+                    const rowElement = document.createElement('tr');
+                    rowElement.innerHTML = `
+                        <td>${venta.idVenta}</td>
+                        <td>${venta.nombreLibro}</td>
+                        <td>${venta.fecha}</td>
+                        <td>${venta.cantidad}</td>
+                        <td>${venta.valorVenta}</td>
+                    `;
+                    tableElement.appendChild(rowElement);
+                });
+            })
+            .catch(error => {
+                console.error("Error al cargar libros:", error);
+            });
+    });

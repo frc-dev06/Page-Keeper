@@ -62,29 +62,28 @@
 </form>
 
         <!-- Ventas previas -->
-        <h2>Ventas previas</h2>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Libro</th>
-                    <th>Fecha</th>
-                    <th>Cantidad</th>
-                    <th>Precio</th>
-                </tr>
-            </thead>
-            <tbody>
-                {{#each ventas}}
-                <tr>
-                    <td>{{this.id}}</td>
-                    <td>{{this.libro}}</td>
-                    <td>{{this.fecha}}</td>
-                    <td>{{this.cantidad}}</td>
-                    <td>{{this.precio}}</td>
-                </tr>
-                {{/each}}
-            </tbody>
-        </table>
+      <table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Libro</th>
+            <th>Fecha</th>
+            <th>Cantidad</th>
+            <th>Precio</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each ventas}}
+        <tr>
+            <td>{{this.idventa}}</td>
+            <td>{{this.nombreLibro}}</td>
+            <td>{{this.fecha}}</td>
+            <td>{{this.cantidad}}</td>
+            <td>{{this.valorVenta}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
     </div>
 <script src="/ventasProductos.js"></script>
 </body>
