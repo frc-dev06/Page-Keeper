@@ -15,29 +15,33 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    document.getElementById('comprar').addEventListener('click', function(event) {
-        event.preventDefault(); // Prevent the form from being submitted normally
+    document.getElementById('comprar').addEventListener('click', function (event) {
+        event.preventDefault(); // Evita que el formulario se envíe normalmente
     
         const cantidad = document.getElementById('cantidad').value;
         const idLibro = document.getElementById('libros').value;
     
-        // Muestra un cuadro de confirmación
+        // Si el usuario hace clic en "Aceptar", envía la solicitud
         if (confirm('¿Estás seguro de que quieres comprar este libro?')) {
-            // Si el usuario hace clic en "Aceptar", envía la solicitud
             fetch('/ventas/comprar', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ cantidad: cantidad , idLibro: idLibro }),
+                body: JSON.stringify({ cantidad: cantidad, idLibro: idLibro }),
             })
             .then(response => response.json())
             .then(data => {
-                console.log('Success:', data);
-                alert('Compra realizada con éxito');
+                if (data.error) {
+                    if (data.error.includes('La cantidad ingresada es mayor que la cantidad disponible')) {
+                        alert('La cantidad ingresada es mayor que la cantidad disponible. No se puede realizar la venta.');
+                    } else {
+                        alert('Error al realizar la compra. ' + data.error);
+                    }
+                } else {
+                    alert('Compra realizada con éxito');
+                }
             })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
         }
-    });
+    }
+    );
