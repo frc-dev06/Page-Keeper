@@ -1,1 +1,94 @@
-<h1>CORREOS</h1>
+<head>
+    <title>Enviar correo</title>
+    <!-- Incluir Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            background-color: white;
+            border-radius: 8px;
+        }
+        .form-group label {
+            font-weight: bold;
+            color: #007bff;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .form-control {
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+        .control-file {
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">CORREOS</h1>
+
+       <form action="#" method="POST" enctype="multipart/form-data" class="contact_form">
+           <div class="form-group">
+    <label for="email">Destinatario:</label>
+    <input type="email" name="email" placeholder="Tu correo electrónico" class='email'   required >
+</div>
+
+            <div class="form-group">
+                <label for="subject">Asunto:</label>
+                <input type="text" id="subject" name="subject" class="asunto" required>
+            </div>
+
+            <div class="form-group">
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" class="mensaje" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="file">Adjuntar Archivo:</label>
+                <input type="file" id="file" name="file" class="control-file">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Enviar Correo</button>
+        </form>
+    </div>
+<script src="https://smtpjs.com/v3/smtp.js">
+</script>
+
+
+<script>
+const from=document.querySelector('.contact_form'),
+    name=document.querySelector('.name'),
+    email=document.querySelector('.email'),
+    msg=document.querySelector('.mensaje'),
+    asunto=document.querySelector('.asunto');
+
+    // Envio email
+function sendMsg(e){
+    e.preventDefault();
+
+ Email.send({
+    SecureToken : "cfbc02c9-2272-472a-b548-5a27aeb051e0",
+    To : 'pagekeeper84@gmail.com',
+    From : email.value,
+    Subject : asunto.value,
+    Body : msg.value
+}).then(
+  message => alert(message)
+);
+ }
+//event
+
+from.addEventListener('submit',sendMsg);
+const message="Su correo ha sido enviado correctamente"
+   
+</script>

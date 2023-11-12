@@ -1,8 +1,8 @@
 const express= require('express');
-const ventasCotroller= require('../controllers/ventasCotroller');
-
+const ventasController = require('../controllers/ventasController');
 const router= express.Router();
 
-router.get('/', ventasCotroller.checkSession);
+router.get('/', ventasController.checkSession);
 
-module.exports= router
+
+module.exports= router;
