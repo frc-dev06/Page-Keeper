@@ -12,7 +12,7 @@ const inventarioRoutes= require('./routes/inventario.js')
 const ventasRoutes= require('./routes/ventas.js')
 const reportesRoutes= require('./routes/reportes.js')
 const correoRoutes= require('./routes/correo.js')
-
+const fs = require('fs');
 const app= express();
 
 // configuracion de conexion
@@ -23,7 +23,7 @@ app.use(myconnection(mysql, {
     port:3306,
     database:'pagekeeperweb',
     ssl: {
-        ca: fs.readFileSync('{src\DigiCertGlobalRootCA.crt.pem}') // reemplaza '{ca-cert filename}' con la ruta a tu archivo de certificado
+        ca: fs.readFileSync('src/DigiCertGlobalRootCA.crt.pem')
     }
 }));
 
