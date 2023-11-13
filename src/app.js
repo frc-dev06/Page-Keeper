@@ -19,7 +19,7 @@ const app= express();
 app.use(myconnection(mysql, {
     host:'localhost',
     user:'root',
-    password:'Manuel15',
+    password:'',
     port:3306,
     database:'pagekeeperweb'
 }));
