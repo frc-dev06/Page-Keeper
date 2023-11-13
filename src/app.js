@@ -17,9 +17,9 @@ const app= express();
 
 // configuracion de conexion
 app.use(myconnection(mysql, {
-    host:'localhost',
-    user:'root',
-    password:'',
+    host:'pagekeeperweb.mysql.database.azure.com',
+    user:'pagekeeperadmin',
+    password:'Manuel15',
     port:3306,
     database:'pagekeeperweb'
 }));
