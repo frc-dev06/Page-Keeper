@@ -21,8 +21,12 @@ app.use(myconnection(mysql, {
     user:'pagekeeperadmin',
     password:'Manuel15',
     port:3306,
-    database:'pagekeeperweb'
+    database:'pagekeeperweb',
+    ssl: {
+        ca: fs.readFileSync('{src\DigiCertGlobalRootCA.crt.pem}') // reemplaza '{ca-cert filename}' con la ruta a tu archivo de certificado
+    }
 }));
+
 
  
 // port
